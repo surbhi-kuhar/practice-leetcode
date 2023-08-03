@@ -1,0 +1,52 @@
+684. Redundant Connection
+Statement : 
+  In this problem, a tree is an undirected graph that is connected and has no cycles.
+  You are given a graph that started as a tree with n nodes labeled from 1 to n, with one additional edge added. The added edge has two different vertices chosen from 1 to n, and was not an edge that already existed. The graph is represented as an array edges of length n where edges[i] = [ai, bi] indicates that there is an edge between nodes ai and bi in the graph.
+  Return an edge that can be removed so that the resulting graph is a tree of n nodes. If there are multiple answers, return the answer that occurs last in the input.
+ 
+Example 1:
+ 
+Input: edges = [[1,2],[1,3],[2,3]]
+Output: [2,3]
+
+Example 2:
+
+Input: edges = [[1,2],[2,3],[3,4],[1,4],[1,5]]
+Output: [1,4]
+
+
+
+Approach :
+
+We already know that a cycle is present in the graph, although we can do it by dfs traversal and find whether cycle is present or not and during that process, returning the edge which forms the cycle but the problem is we have to return last input in case we get multiple answers. For eg : [[1,2],[1,3],[2,4],[3,4]].
+
+Here, any edge can be removed and the tree will be formed, but we have to return last edge only, for that we go in the order of edges as it is given.
+The only method for that is Disjoint Set. The approach is as follows:
+1. Let us take 2nd test case. 
+2. Set parent of all nodes as themselves. This is the parent vector.
+
+1	2	3	4	5
+
+3. We will compare parents of two nodes, if they are equal means they are a part of same component. But if their parents are different then we will combine them together .
+4. [1,2] parent of 1 and 2 are different hence make them as one entity. Set parent[2] as parent[1], we can also set parent[1] = 2, as your wish.
+
+1	1	3	4	5
+
+
+5. [2,3] parent of 2 and 3 are different hence make them as one entity. Set parent[3] as parent[2].
+
+1	1	1	4	5
+
+
+6. [3,4] parent of 3 and 4 are different hence make them as one entity. Set parent[4] as parent[3].
+
+1	1	1	1	5
+
+
+7. [1,4] parent of 1 and 4 are same means the cycle has occurred now and we have to return that edge.
+
+
+
+
+
+
