@@ -1,0 +1,78 @@
+Given an integer n, return the least number of perfect square numbers that sum to n.
+
+A perfect square is an integer that is the square of an integer; in other words, it is the product of some integer with itself.
+For example, 1, 4, 9, and 16 are perfect squares while 3 and 11 are not.
+
+ 
+
+Example 1:
+
+Input: n = 12
+Output: 3
+Explanation: 12 = 4 + 4 + 4.
+
+Example 2:
+
+Input: n = 13
+Output: 2
+Explanation: 13 = 4 + 9.
+
+
+Let us discuss brute force solution with 2nd test case.
+
+We can easily find perfect squares less than or equal to the given number bu using a for loop.
+
+The question is, how we use these perfect squares to sum up to n ?
+
+Perfect squares till 13 are :   1, 4, 9
+
+              13
+        1 /   4|   \9
+         12    9    4
+      1/ 4| \9 
+      11  8  3
+      .
+      .
+      .
+      .
+
+    so on
+
+
+Let us discuss about the tree we formed above.
+
+We are at 13 , we have 3 choices either to go with 1 or 4 or 9. Let us consider a "count" variable to count number of perfect squares used.
+
+If we go with 1, 1 would be added to count and 13 would be reduced to 12. We are reducing the value until some base condition is reached.
+
+Now, from 12 we have further 3 choices, 1, 4 and 9. If we take 1 the value is reduced to 11 and count becomes 2 and so on.
+
+We will do the same for 4 and 9.
+
+What is the base case ? Where do we have to stop ?
+
+if n = 1   we have to form 1, we can do it using one perfect square i.e. 1. This is minimum number of perfect sqaures we can use to make 1.
+if n = 2   we have to form 2, we can do it using two perfect squares i.e. 1 + 1 . This is minimum number of perfect sqaures we can use to make 2.
+if n = 3   we have to form 3, we can do it using three perfect squares i.e. 1 + 1 + 1 . This is minimum number of perfect sqaures we can use to make 3.
+if n = 4   we have to form 4, we can do it using one perfect square i.e. 4 itself . This is minimum number of perfect sqaures we can use to make 4.
+
+So, the base case is if ( n < 4 )  then we will return.
+
+We have to parallely check whether count is minimum or not.
+
+This is how the recursive approach works.
+
+But is takes exponential time because we calculate count for a lot of numbers in the recursive tree again and again. 
+So, we decide to store the data somewhere which is called recursion + memoization approach.
+
+Here, we will store the count for all the numbers till n. Like, we store for 12, 11, 10 and so on.
+Now we can directly give the number of perfect squares required to form a particular number from the array itself. This will save a lot of time.
+Earlier, we used to calculate it again and again.
+
+Lets look at the code in another file now.
+
+   
+    
+
+
+
