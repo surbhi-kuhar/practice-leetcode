@@ -1,0 +1,53 @@
+Question Statement :
+
+You have n gardens, labeled from 1 to n, and an array paths where paths[i] = [xi, yi] describes a bidirectional path between garden xi to garden yi. In each garden, you want to plant one of 4 types of flowers.
+
+All gardens have at most 3 paths coming into or leaving it.
+
+Your task is to choose a flower type for each garden such that, for any two gardens connected by a path, they have different types of flowers.
+
+Return any such a choice as an array answer, where answer[i] is the type of flower planted in the (i+1)th garden. The flower types are denoted 1, 2, 3, or 4. It is guaranteed an answer exists.
+
+Input: n = 3, paths = [[1,2],[2,3],[3,1]]
+Output: [1,2,3]
+
+Input: n = 4, paths = [[1,2],[2,3],[3,4],[4,1],[1,3],[2,4]]
+Output: [1,2,3,4]
+
+Approach :   
+
+Let us first make the adjacency list, because anyhow we would need it. Considering test case 2:
+
+1 --> 2,3,4
+2 --> 3,4,2
+3 --> 4,3,2
+4 --> 1,2,3
+
+The adjacency list is formed so because the graph is an undirected graph.
+
+It is identical to a graph coloring problem in which no two adjacent nodes can have the same color.
+
+1 is adjacent to 2, 3, and 4 which means 1 cannot have the color that 2,3 and 4 possess.
+
+We will initially make an array, colors that will be storing the colors of nodes but it is initially -1 for all the nodes.
+
+So, what we will be doing is we will traverse through the list of neighbors for every node and make an array for the colors which are already used.
+Then, traversing the colors used array we will give the color to the node which is not already used.
+
+The no. of colors that can be used is 4.
+
+Let us make an array, colors_used which is going to be a boolean array of size 4.
+
+We are traversing at 2,3,4. 
+
+colors[2] == -1 means it is not already colored means it is not used. So, we will mark it in the used_colors array.
+colors[3] == -1 means it is not already colored means it is not used. So, we will mark it in the used_colors array.
+colors[4] == -1 means it is not already colored means it is not used. So, we will mark it in the used_colors array.
+
+Finally, we will traverse through the used array and we will give the color to the node as the index + 1 where the value is 0 in the used array.
+
+
+
+
+
+
