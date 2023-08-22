@@ -1,0 +1,59 @@
+Alice and Bob take turns playing a game, with Alice starting first.
+
+Initially, there is a number n on the chalkboard. On each player's turn, that player makes a move consisting of:
+
+Choosing any x with 0 < x < n and n % x == 0.
+Replacing the number n on the chalkboard with n - x.
+Also, if a player cannot make a move, they lose the game.
+
+Return true if and only if Alice wins the game, assuming both players play optimally.
+
+ 
+
+Example 1:
+
+Input: n = 2
+Output: true
+Explanation: Alice chooses 1, and Bob has no more moves.
+Example 2:
+
+Input: n = 3
+Output: false
+Explanation: Alice chooses 1, Bob chooses 1, and Alice has no more moves.
+
+Approach:
+
+If one wants to do two lines of code, it is simply, if(n%2 ==0) return true else return false.
+It runs for all the test cases.
+
+If n = 1 means, we can not subtract the number, hence Alice loses.
+If n = 2 , Alice choses 1 from 1 to n-1, because it completely divides 2, n becomes 1, Bob cannot subtract the number now hence Alice wins.
+If n = 3 , Alice again choses 1 because it completely divides 3, n becomes 2, Bob now choses 1 and n becomes 1, Alice can now not perform any move and she loses.
+
+Hence, the base case is if ( n==1 ) return false and if( n==2 ) return true.
+
+We run a for loop to find the number from 1 to n-1 which will completely divide n, and then make a recursive call for (n-x).
+
+The approach above is a recursive approach. Now, let us do it using Memoization.
+
+We will make an array of boolean type and store these values in it, so that we do not end up calculating same results again and again.
+
+We can do it using DP. How ?
+
+Again, we need an array in it. But what we will store in this array? 
+Ans. We will be storing the boolean value (true/false) for any ith index. In simple words, suppose there is a number 3, so we will be storing all the results from 1
+to 3, again to prevent us from solving the result again and again. 
+
+Pseudo Code for DP approach:
+
+1. Create an array of boolean type(arr) of size n+1.
+2. Run a loop from i = 1 to n because we will be calculating all the results for values 1 to n.
+3. arr[1] = false , arr[2] = true, these were the base cases we discussed.
+4. Run a loop (inner loop) from j = 1 to n to find which number completely divides i , arr[i] = !arr[i-j], and break the inner loop.
+
+Now, the question comes, why are we storing !arr[i-j] ? 
+Suppose the number n is 3, Alice chooses 1 and the number becomes 2, for 2, value in arr is true, but Alice 
+does not win the game in this case, since, Bob choses 1 and finally the number becomes 1, Bob wins. 
+So, we store negation of arr[i-j].
+
+
