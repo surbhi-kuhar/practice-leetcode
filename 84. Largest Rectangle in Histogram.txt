@@ -1,0 +1,63 @@
+Given an array of integers heights representing the histogram's bar height where the width of each bar is 1, return the area of the largest rectangle in the histogram.
+
+Example 1:
+
+Input: heights = [2,1,5,6,2,3]
+Output: 10
+Explanation: The above is a histogram where the width of each bar is 1.
+The largest rectangle is shown in the red area, which has an area = 10 units.
+
+Example 2:
+
+
+Input: heights = [2,4]
+Output: 4
+
+APPROACH:
+
+The brute force approach is for every bar, we find the areas from that ith till the end apply some conditions to it.
+
+int ans = 0;
+for ( int i = 0 ; i < n ; i++){
+      int mini = INT_MAX;
+      for ( int j = i ; j < n ; j++ ){
+            mini = min ( mini, arr[j]);          // to find minimum height bar
+            int width = j - i - 1 ;
+            ans = max ( ans , mini * width );
+      }
+}
+
+return ans;
+
+But its runtime complexity is O(n^2).
+
+The optimization that can be done here is if we find the index of the next smallest bar, let us say j, and the previous smallest bar, let us say i, for every bar. 
+And hence, j - i - 1 will be the width of the rectangle formed in between and we can calculate the area. 
+
+Now, the question arises how to find the next smallest and previous smallest element index.
+
+Let us say we want to find next smallest bar.
+
+   arr =  6  2  5  4  5  1  6
+
+We will be doing it using stack, stack will the indexes.
+
+1. Start traversing the array from end.
+2. For the last bar there is no smallest bar to its right hence, we push a -1 in the stack initially.
+3. If arr[st.top()] > arr[i] it means, it is greater than the current bar but we are searching for a smaller one. So, we will keep on popping the indexes from stack 
+   until arr[st.top()] < arr[i]. 
+4. And when this condition is true means we have got the smaller bar, push the index of current bar to stack. And also, store the top value from the stack in the
+   array which is storing indexes of next smaller elements. 
+
+Similarly, we will be searching for previous smaller, the difference is just that we will iterate through the arr from the start. 
+
+[ 2,2,2,2 ] If the histogram is this then there is no next smaller and no previous smaller. 
+-1 -1 -1 -1   next smaller array
+-1 -1 -1 -1   previous smaller array
+
+We have to handle an edge case that if next[i] == -1 then next[i] = n , because the breadth would become negative if next[i] = -1, if prev[i] == -1, then there is 
+no issue , breadth = 1 - (-1) -1 = 1 ( if next[i] = 1 and prev[i] = -1).
+
+Time Complexity : O(n)
+
+
