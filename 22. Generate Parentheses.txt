@@ -1,0 +1,61 @@
+Given n pairs of parentheses, write a function to generate all combinations of well-formed parentheses.
+
+ 
+Example 1:
+
+Input: n = 3
+Output: ["((()))","(()())","(())()","()(())","()()()"]
+
+Example 2:
+
+Input: n = 1
+Output: ["()"]
+
+
+Approach :
+
+Number of open brackets = n 
+Number of closing brackets = n
+
+We will play with these. We will solve it recursively.
+
+Initially, open = 0 and close = 0.
+
+Until open reaches n we keep adding '(' to the string, and increment the count of open brackets. This is a recursive call.
+
+Also, we will check if number of closing brackets < number of opening brackets , we will add ')' to the string, and increment the count of closing brackets. This is also
+a recursive call.
+
+What is the base case then?
+Ans. We will stop when length of the string is equal to 2*n.  ( because sum of number of closing and opening brackets is equal to 2*n )
+
+
+Let us take 2nd test case.
+
+n = 2
+Let us take a string ""
+
+open = 0 , close = 0 initially, and the string is also empty.
+
+1. open < n hence, string = "(" and open = 1.
+   Recursive call 
+2. open < n hence, string = "((" and open = 2.
+   Recursive call
+3. open is not less than n now, we will check if close < open, yes 0 < 2, string = "(()" , close becomes 1.
+   Recursive call.
+4. open is still not less than n now, we will check if close < open, yes 1 < 2, string = "(())", close becomes 2.
+   Recursive call
+
+Now, base case is reached, length of string becomes equal to 2*n. Hence, we will push this string in vector and return to 4 step then 3 step then 2 step and then 1 step.
+On 1, our open = 1 and string = "(", now we will check if close < open, yes, 0 < 1 hence, string = "()" and close = 1
+Recursive call
+
+open < n , string = "()(" , open = 2
+Recursive call
+
+open is not less than n now, so we will check if close < open , yes, 1 < 2, string = "()()", close = 2.
+
+Now, the base case is reached because length of string is equal to 2*n. The string will be pushed to vector. 
+And the vector is returned as answer.
+
+answer vector =  [ "(())" , "()()" ]
