@@ -1,0 +1,41 @@
+Given an integer columnNumber, return its corresponding column title as it appears in an Excel sheet.
+
+For example:
+
+A -> 1
+B -> 2
+C -> 3
+...
+Z -> 26
+AA -> 27
+AB -> 28 
+...
+ 
+
+Example 1:
+
+Input: columnNumber = 1
+Output: "A"
+
+Example 2:
+
+Input: columnNumber = 28
+Output: "AB"
+
+Example 3:
+
+Input: columnNumber = 701
+Output: "ZY"
+
+Approach :   It is an easy marked question on leetcode. We are only given column number. What can be done with it ?
+
+Let us take 2nd test case 28. 
+
+Just hit and trial, let us divide 28 by 26. The quotient is 1 and the remainder is 2. Well, that is our answer. 1 for A and 2 for B.
+Similarly when it comes to 701, 701 / 26 = 26 and the remainder is 25. 26 for Z and 25 for Y.
+
+But, what if we take a larger number? Like 1000. 
+1000 / 26 = 38 and the remainder is 12, we will again divide 38 by 26, 38/26 = 1 and the remainde is 12.
+We will store all the remainders and the quotient also 1,12,12 which makes A, L, L.
+
+So, we will keep on dividing columnNumber by 26 until it becomes 0 and store all the remainders to form a string.
