@@ -1,0 +1,49 @@
+You are given an integer array coins representing coins of different denominations and an integer amount representing a total amount of money.
+
+Return the fewest number of coins that you need to make up that amount. If that amount of money cannot be made up by any combination of the coins, return -1.
+
+You may assume that you have an infinite number of each kind of coin.
+
+ 
+
+Example 1:
+
+Input: coins = [1,2,5], amount = 11
+Output: 3
+Explanation: 11 = 5 + 5 + 1
+
+Example 2:
+
+Input: coins = [2], amount = 3
+Output: -1
+
+Example 3:
+
+Input: coins = [1], amount = 0
+Output: 0
+
+
+Approach :
+
+The problem is more or less same as minimum coins required to make a particular target, but the difference here is that we can use a coin any number of times. 
+
+Again, we have two possibilities for a coin, either to take it or not take it. We will start from end of the array.
+
+If we take a coin we will not move backward, instead we will make the recursive call for the same index because a coin can be used any number of times and in case of not taking the coin, we decrement our index
+and move to next coin.
+
+Now, let us discuss about base case.
+Our base is when we reach 0th index, there can be two possibilities, 
+
+(i)  0th index coin completely divides amount, if this is the case we can use it. For example : if amount = 4 and 0th index coin = 2, it means we can make 4 using two coins of 2.
+(ii) 0th index coin does not divide amount, if this is the case we can not use it and hence we return a -1. For example : if amount = 4 and 0th index coin = 3, it means we can not make 4 using 3, hence, we return 
+     a  -1.
+
+This was the recursive approach. 
+
+We can simply convert this to memoization and tabulation using a vector.
+
+
+
+
+
