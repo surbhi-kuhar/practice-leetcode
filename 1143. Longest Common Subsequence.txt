@@ -1,0 +1,69 @@
+Given two strings text1 and text2, return the length of their longest common subsequence. If there is no common subsequence, return 0.
+
+A subsequence of a string is a new string generated from the original string with some characters (can be none) deleted without changing the relative order of the remaining characters.
+
+For example, "ace" is a subsequence of "abcde".
+A common subsequence of two strings is a subsequence that is common to both strings.
+
+Example 1:
+
+Input: text1 = "abcde", text2 = "ace" 
+Output: 3  
+Explanation: The longest common subsequence is "ace" and its length is 3.
+
+Example 2:
+
+Input: text1 = "abc", text2 = "abc"
+Output: 3
+Explanation: The longest common subsequence is "abc" and its length is 3.
+
+Example 3:
+
+Input: text1 = "abc", text2 = "def"
+Output: 0
+Explanation: There is no such common subsequence, so the result is 0.
+
+
+Approach :
+
+Brute force :  Generate all subsequences of both the strings. Compare each subsequence of first string with all subsequences of the other string to find longest common susbsequence. But this would take exponentail time.
+
+Now we would be making subsequence and comparing on the way.
+
+abcde    ace 
+    i      j 
+
+We need to maintain two indexes for two strings.
+
+Case 1 :  If text1[i] == text2[j] , means we can include 'e' in the subsequence and decrement both i and j by 1 and add 1 to the solution.         This is the case for matching
+
+abcde   ace 
+   i     j
+
+Case 2 :  Now they are not equal. We cannot decrement both i and j by 1 together because we will then miss out on 'c' equals 'c'.                  This is the case for not matching
+
+So, we should once decrement i and j remains same. Then decrement j and i remains same.  
+
+Base case :   Since we start from end, so base case is i < 0 || j < 0 then return 0.
+
+Memoization would be very easy to do, we just have to make a 2D array and store values in it.
+
+Let us focus on tabulation.
+
+We have a 2D dp array of size ( n+1 X m+1 ).
+
+1.  Handle base case. 
+
+    We cannot store 0 at negative indexes. So, we shift the elements that is we store 0 at 0 indexes.
+    We store 0 at indexes where i = 0 and j can vary from 0 to m-1.
+    We store 0 at indexes where j = 0 and i can vary from 0 to n-1.
+
+2.  Iterate through strings from start i.e. 1st index.
+
+    for ( int  i =1 ;i <= n ; i++) {
+       for( int j = 1 ; j<=m ; j++) { 
+
+       } 
+    }
+
+3.  Apply same operations inside the loops but while checking if they are equal we check    if ( str1[i-1] == str2[j-1] )   because we start from 1 index.
