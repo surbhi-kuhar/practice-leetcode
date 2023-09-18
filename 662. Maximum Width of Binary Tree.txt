@@ -1,0 +1,45 @@
+Given the root of a binary tree, return the maximum width of the given tree.
+
+The maximum width of a tree is the maximum width among all levels.
+
+The width of one level is defined as the length between the end-nodes (the leftmost and rightmost non-null nodes), where the null nodes between the end-nodes that would be present in a complete binary tree extending down to that level are also counted into the length calculation.
+
+It is guaranteed that the answer will in the range of a 32-bit signed integer.
+
+ 
+
+Example 1:
+
+Input: root = [1,3,2,5,3,null,9]
+Output: 4
+Explanation: The maximum width exists in the third level with length 4 (5,3,null,9).
+
+Example 2:
+
+Input: root = [1,3,2,5,null,null,9,6,null,7]
+Output: 7
+Explanation: The maximum width exists in the fourth level with length 7 (6,null,null,null,null,null,7).
+
+Example 3:
+
+Input: root = [1,3,2,5]
+Output: 2
+Explanation: The maximum width exists in the second level with length 2 (3,2).
+
+
+Approach :
+
+The question will be solved using a level order traversal because we want to find maximum width, or we can say maximum width of a level. Here we have to include the nodes which are not present in between.
+Adding dummy nodes at those places would make our task cumbersome. So, we keep a track of indexes of the nodes, like we do in a heap. 
+If parent is at ith index then left child will be at 2*i+1 index and right child will be at 2*i+2 index.
+
+Algorithm :
+
+1. Maintain a queue which will store pairs of node and the index.
+2. Until the queue becomes empty, find the size of queue. Size will give us number of pairs in queue. To find the width of a level find the end index and start index.
+3. End index will be q.back().second and start index will be q.front().second. The width of a level becomes end-start+1. Compare this width with an ans and update it.
+4. For all the pairs in the queue we will check if there exists a left node then make a pair for it and push in queue. 
+    Left pair  = {node->left, 2*index + 1}
+5. If there exists a right node make a pair for it and push in queue.
+    Right pair = {node->right, 2*index + 2}
+
